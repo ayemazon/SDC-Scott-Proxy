@@ -1,12 +1,14 @@
 # maddie-amz-proxy
 
+### Installation Steps
+Install all dependencies
+```
+npm install
+```
 
-## Before you begin
+### Running the server
+```
+npm run start
+```
 
-### Step 1
-Run `npm install` to install all dependencies locally.
 
-
-## Personal notes
-Created the package.json file using `npm init` and filled in dependencies
-Ran `npm install`
