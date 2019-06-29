@@ -11,4 +11,10 @@ npm install
 npm run start
 ```
 
+## Related Projects
+
+- https://github.com/the-purple-team/bruce-service
+- https://github.com/the-purple-team/bradyService
+- https://github.com/the-purple-team/Jose-Questions-And-Answers-Service
+
 
