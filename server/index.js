@@ -12,15 +12,10 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "../", "public")));
 app.use('/static', express.static(path.join(__dirname, "../", "public")));
+app.use('/:id', express.static(path.join(__dirname, "../", "public")));
 
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "../", "public/index.html"));
-});
+app.use('/product/:id', proxy('http://localhost:3030'));
 
 app.listen(PORT, () => {
   console.log(`visit http://localhost:${PORT}`);
 });
-
-
-
