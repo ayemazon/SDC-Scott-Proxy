@@ -1,0 +1,27 @@
+config:
+  target: 'http://localhost:3030'
+  phases:
+    - duration: 120
+      arrivalRate: 1
+      name: "1 request/sec"
+    - duration: 60
+      arrivalCount: 20
+      name: "3 request/sec"
+    - duration: 100
+      arrivalRate: 10
+      rampTo: 1000
+      name: "Ramp up arrival rate from 10 - 1000"
+  http:
+    # Responses have to be sent within 5 seconds or the request will be aborted
+    timeout: 5
+  variables:
+    id:
+      - "1006010"
+      - "4812435"
+      - "7046552"
+      - "9433691"
+      - "11902399"
+scenarios:
+  - flow:
+    - get:
+        url: "/product/{{ id }}"

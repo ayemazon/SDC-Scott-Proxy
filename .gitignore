@@ -1,4 +1,4 @@
-node_modules/
+node_modules
 
 /public/derricks_service.js
 /public/juans_service.js
