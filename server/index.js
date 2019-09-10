@@ -6,6 +6,7 @@ const cors = require('cors');
 const path = require('path');
 const url = require('url');
 const axios = require('axios');
+const config = require('./axios.config.js')
 
 const sparksPaths = ['/products', 'products/:productId'];
 const derricksPaths = ['/product/:id'];
@@ -23,12 +24,13 @@ app.use('/:id', express.static(path.join(__dirname, "../", "public"), {maxAge: 3
 
 app.get(scottsPaths, (req, res) => {
   let originalUrl = req.originalUrl;
-  axios.get(`http://localhost:3030${originalUrl}`)
+  config.url = originalUrl;
+  axios(config)
     .then(function(response) {
       res.set({'Cache-Control': 'max-age=30000'}).status(200).json(response.data)
     })
     .catch(function (err) {
-      res.status(400).json(err)
+      res.status(400).send(err)
     })
 })
 

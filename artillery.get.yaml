@@ -10,11 +10,11 @@ config:
     - duration: 30
       arrivalRate: 100
       name: "100 request/sec"
-    - duration: 100
-      arrivalRate: 10
-      rampTo: 400
+    - duration: 60
+      arrivalRate: 100
+      rampTo: 600
       name: "Ramp up arrival rate from 10 - 1000"
-    - duration: 40
+    - duration: 30
       arrivalRate: 10
       name: "10 request/sec"
   http:
