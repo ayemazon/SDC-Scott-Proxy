@@ -1,7 +1,6 @@
 require('newrelic');
 const express = require('express');
 // const morgan = require("morgan");
-// const proxy = require('express-http-proxy');
 const cors = require('cors');
 const path = require('path');
 const url = require('url');

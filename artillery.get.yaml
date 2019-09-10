@@ -12,22 +12,18 @@ config:
       name: "100 request/sec"
     - duration: 60
       arrivalRate: 100
-      rampTo: 600
-      name: "Ramp up arrival rate from 10 - 1000"
+      rampTo: 700
+      name: "Ramp up arrival rate from 100 - 1000"
     - duration: 30
       arrivalRate: 10
       name: "10 request/sec"
+  processor: "./artillery-scripts.js"
   http:
     # Responses have to be sent within 5 seconds or the request will be aborted
     timeout: 10
-  variables:
-    id:
-      - "1006010"
-      - "4812435"
-      - "7046552"
-      - "9433691"
-      - "11902399"
+  
 scenarios:
   - flow:
+    - function: "getRandomId"
     - get:
         url: "/product/pricing/{{ id }}"
