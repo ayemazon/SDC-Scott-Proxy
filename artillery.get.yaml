@@ -1,29 +1,24 @@
 config:
   target: 'http://localhost:3300'
   phases:
-    - duration: 30
+    - duration: 60
       arrivalRate: 1
       name: "1 request/sec"
-    - duration: 30
+    - duration: 60
       arrivalRate: 10
       name: "10 request/sec"
-    - duration: 30
-      arrivalRate: 100
-      name: "100 request/sec"
     - duration: 60
       arrivalRate: 100
-      rampTo: 700
-      name: "Ramp up arrival rate from 100 - 1000"
-    - duration: 30
-      arrivalRate: 10
-      name: "10 request/sec"
+      name: "100 request/sec"
   processor: "./artillery-scripts.js"
   http:
-    # Responses have to be sent within 5 seconds or the request will be aborted
+    # Responses have to be sent within 10 seconds or the request will be aborted
     timeout: 10
-  
+
 scenarios:
   - flow:
-    - function: "getRandomId"
-    - get:
-        url: "/product/pricing/{{ id }}"
+      - loop:
+        - function: "getRandomId"
+        - get:
+            url: "/product/pricing/{{ id }}"
+        count: 10

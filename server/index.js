@@ -29,7 +29,7 @@ app.get(scottsPaths, (req, res) => {
       res.set({'Cache-Control': 'max-age=30000'}).status(200).json(response.data)
     })
     .catch(function (err) {
-      res.status(400).send(err)
+      res.status(400).json(err.errno)
     })
 })
 
