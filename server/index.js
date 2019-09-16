@@ -13,7 +13,7 @@ const scottsPaths = ['/product/pricing/:id'];
 const juansPaths = []
 
 const app = express();
-const PORT = 3300;
+const PORT = 8080;
 app.use(cors());
 
 // app.use(morgan("dev"));
@@ -43,5 +43,5 @@ app.get(scottsPaths, (req, res) => {
 // app.use(juansPaths, proxy('http://localhost:8080'));
 
 app.listen(PORT, () => {
-  console.log(`visit http://localhost:${PORT}`);
+  console.log(`visit http://ec2-3-14-147-96.us-east-2.compute.amazonaws.com:${PORT}`);
 });
