@@ -1,6 +1,5 @@
 require('newrelic');
 const express = require('express');
-// const morgan = require("morgan");
 const cors = require('cors');
 const path = require('path');
 const url = require('url');
@@ -16,7 +15,6 @@ const app = express();
 const PORT = 8080;
 app.use(cors());
 
-// app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "../", "public"), {maxAge: 30000}));
 app.use('/static', express.static(path.join(__dirname, "../", "public"), {maxAge: 30000}));
 app.use('/:id', express.static(path.join(__dirname, "../", "public"), {maxAge: 30000}));
@@ -32,15 +30,6 @@ app.get(scottsPaths, (req, res) => {
       res.status(400).json(err.errno)
     })
 })
-
-// app.use(scottsPaths, proxy('http://localhost:3030', {
-//   proxyReqPathResolver: function (req) {
-//     return req.baseUrl;
-//   }
-// }));
-// app.use(derricksPaths, proxy('http://localhost:3005'));
-// app.use(sparksPaths, proxy('http://localhost:3000'));
-// app.use(juansPaths, proxy('http://localhost:8080'));
 
 app.listen(PORT, () => {
   console.log(`visit http://ec2-3-14-147-96.us-east-2.compute.amazonaws.com:${PORT}`);
