@@ -2,9 +2,11 @@ require('newrelic');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const url = require('url');
 const axios = require('axios');
 const config = require('./axios.config.js')
+
+const NodeCache = require('node-cache');
+const myCache = new NodeCache({stdTTL: 3000});
 
 const sparksPaths = ['/products', 'products/:productId'];
 const derricksPaths = ['/product/:id'];
@@ -20,15 +22,29 @@ app.use('/static', express.static(path.join(__dirname, "../", "public"), {maxAge
 app.use('/:id', express.static(path.join(__dirname, "../", "public"), {maxAge: 30000}));
 
 app.get(scottsPaths, (req, res) => {
-  let originalUrl = req.originalUrl;
-  config.url = originalUrl;
-  axios(config)
-    .then(function(response) {
-      res.set({'Cache-Control': 'max-age=30000'}).status(200).json(response.data)
-    })
-    .catch(function (err) {
-      res.status(400).json(err.errno)
-    })
+  myCache.get(req.params.id, (err, value) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      if (value == undefined) {
+        let originalUrl = req.originalUrl;
+        config.url = originalUrl;
+        axios(config)
+          .then(function(response) {
+            myCache.set(req.params.id, response.data, (err, success) => {
+              res.set({'Cache-Control': 'max-age=30000'}).status(200).json(response.data)
+            })
+          })
+          .catch(function (err) {
+            res.status(400).json(err.errno)
+          })
+      } else {
+        res.set({'Cache-Control': 'max-age=30000'}).status(200).json(response.data)
+      }
+    }
+  })
+
 })
 
 app.listen(PORT, () => {
